@@ -10,6 +10,8 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Test>().HasKey(t => t.Id);
+        modelBuilder.Entity<User>().HasKey(u => u.Id);
     }
     public DbSet<Test> Tests { get; set; }
+    public DbSet<User> Users { get; set; }
 }
