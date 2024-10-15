@@ -29,7 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\User\" />
+      <Folder Include="Contracts\User\Requests\" />
     </ItemGroup>
 
 </Project>
