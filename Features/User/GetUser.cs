@@ -44,7 +44,7 @@ public class GetUserEndpoint : ICarterModule
         {
             var query = new GetUser.Query { Email = email };
             var result = await sender.Send(query);
-            return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result.Value);
+            return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result);
         }).WithTags(RouteTag);
     }
 }

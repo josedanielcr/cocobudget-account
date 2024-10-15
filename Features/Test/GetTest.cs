@@ -56,7 +56,7 @@ public class GetTestEndpoint : ICarterModule
             var result = await sender.Send(query);
             return result.IsFailure 
                 ? Results.NotFound(result.Error) 
-                : Results.Ok(result.Value);
+                : Results.Ok(result);
         });
     }
 }
