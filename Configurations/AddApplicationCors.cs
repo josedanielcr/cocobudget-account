@@ -9,12 +9,13 @@ public static class AddApplicationCors
             options.AddPolicy("CorsPolicy", builder =>
             {
                 builder
+                    .WithOrigins("http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowAnyOrigin();
             });
         });
-
+        
         return services;
     }
 }
