@@ -75,7 +75,7 @@ public class CreateUserEndpoint : ICarterModule
     private const string RouteTag = "Users";
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/users", async (CreateUserRequest request, ISender sender) =>
+        app.MapPost("api/user", async (CreateUserRequest request, ISender sender) =>
         {
             var command = new CreateUser.Command
             {
