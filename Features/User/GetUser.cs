@@ -40,7 +40,7 @@ public class GetUserEndpoint : ICarterModule
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/users/{email}", async (string email, ISender sender) =>
+        app.MapGet("api/user/{email}", async (string email, ISender sender) =>
         {
             var query = new GetUser.Query { Email = email };
             var result = await sender.Send(query);
