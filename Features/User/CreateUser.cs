@@ -21,9 +21,8 @@ public class CreateUser
         [MaxLength(256)]
         [EmailAddress]
         public required string Email { get; set; }
-
-        [MaxLength(2048)]
-        public string? ProfilePicture { get; set; }
+        public required DateTime BudgetStartDate { get; set; }
+        public required DateTime BudgetEndDate { get; set; }
     }
 
     public class Validator : AbstractValidator<Command>
@@ -33,6 +32,8 @@ public class CreateUser
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.BudgetStartDate).NotEmpty();
+            RuleFor(x => x.BudgetEndDate).NotEmpty();
         }
     }
 
@@ -49,7 +50,7 @@ public class CreateUser
 
         public async Task<Result<Entities.User>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var validationResult = _validator.Validate(request);
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
                 return Result.Failure<Entities.User>(new Error("CreateUser.Validation", validationResult.ToString()));
@@ -60,7 +61,8 @@ public class CreateUser
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                ProfilePicture = request.ProfilePicture ?? string.Empty
+                BudgetStartDate = request.BudgetStartDate,
+                BudgetEndDate = request.BudgetEndDate
             };
 
             _dbContext.Users.Add(user);
@@ -82,7 +84,8 @@ public class CreateUserEndpoint : ICarterModule
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                ProfilePicture = request.ProfilePicture
+                BudgetStartDate = request.BudgetStartDate,
+                BudgetEndDate = request.BudgetEndDate
             };
 
             var result = await sender.Send(command);

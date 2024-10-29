@@ -16,7 +16,7 @@ public class CreateUserRequest
     [MaxLength(256)]
     [EmailAddress]
     public string Email { get; set; } = null!;
-
-    [MaxLength(2048)]
-    public string? ProfilePicture { get; set; }
+    
+    public required DateTime BudgetStartDate { get; set; }
+    public required DateTime BudgetEndDate { get; set; }
 }

@@ -5,7 +5,8 @@ namespace web_api.Contracts.User.Responses;
 
 public class UserResponse : BaseEntity
 {
-    public UserResponse(Guid id, string firstName, string lastName, string email, bool isVerified, string profilePicture, bool isActive, DateTime createdOn, DateTime modifiedOn)
+    public UserResponse(Guid id, string firstName, string lastName, string email, bool isVerified, string profilePicture, bool isActive, 
+        DateTime createdOn, DateTime modifiedOn, DateTime budgetStartDate, DateTime budgetEndDate)
     {
         Id = id;
         FirstName = firstName;
@@ -16,6 +17,8 @@ public class UserResponse : BaseEntity
         IsActive = isActive;
         CreatedOn = createdOn;
         ModifiedOn = modifiedOn;
+        BudgetStartDate = budgetStartDate;
+        BudgetEndDate = budgetEndDate;
     }
 
     public Guid Id { get; set; }
@@ -24,4 +27,6 @@ public class UserResponse : BaseEntity
     public string Email { get; set; }
     public bool IsVerified { get; set; }
     public string ProfilePicture { get; set; }
+    public required DateTime BudgetStartDate { get; set; }
+    public required DateTime BudgetEndDate { get; set; }
 }
