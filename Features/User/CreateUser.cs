@@ -21,7 +21,6 @@ public class CreateUser
         [MaxLength(256)]
         [EmailAddress]
         public required string Email { get; set; }
-        [Range(1,365)] public required int BudgetDayLength { get; set; }
     }
 
     public class Validator : AbstractValidator<Command>
@@ -31,7 +30,6 @@ public class CreateUser
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.BudgetDayLength).InclusiveBetween(1, 365);
         }
     }
 
@@ -58,8 +56,7 @@ public class CreateUser
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email,
-                BudgetDayLength = request.BudgetDayLength
+                Email = request.Email
             };
 
             _dbContext.Users.Add(user);
@@ -80,8 +77,7 @@ public class CreateUserEndpoint : ICarterModule
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email,
-                BudgetDayLength = request.BudgetDayLength
+                Email = request.Email
             };
 
             var result = await sender.Send(command);

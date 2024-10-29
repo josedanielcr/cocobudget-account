@@ -16,6 +16,4 @@ public class CreateUserRequest
     [MaxLength(256)]
     [EmailAddress]
     public string Email { get; set; } = null!;
-    
-    [Range(1,365)] public required int BudgetDayLength { get; set; }
 }
