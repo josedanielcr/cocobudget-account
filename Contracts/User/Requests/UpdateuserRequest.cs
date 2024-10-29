@@ -20,4 +20,5 @@ public class UpdateUserRequest
 
     [MaxLength(2048)]
     public string? ProfilePicture { get; set; }
+    [Range(1,365)] public required int BudgetDayLength { get; set; }
 }

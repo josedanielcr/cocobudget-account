@@ -9,6 +9,6 @@ public class User : BaseEntity
     [MaxLength(128)] public required string LastName { get; set; }
     [MaxLength(256)] public required string Email { get; set; }
     [MaxLength(2048)] public string ProfilePicture { get; set; } = string.Empty;
-    public required DateTime BudgetStartDate { get; set; }
-    public required DateTime BudgetEndDate { get; set; }
+    
+    [Range(1, 365)] public required int BudgetDayLength { get; set; }
 }

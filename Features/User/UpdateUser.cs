@@ -26,6 +26,7 @@ namespace web_api.Features.User
 
             [MaxLength(2048)]
             public string? ProfilePicture { get; set; }
+            [Range(1,365)] public required int BudgetDayLength { get; set; }
         }
 
         public class Validator : AbstractValidator<Command>
@@ -35,6 +36,8 @@ namespace web_api.Features.User
                 RuleFor(x => x.FirstName).NotEmpty();
                 RuleFor(x => x.LastName).NotEmpty();
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
+                RuleFor(x => x.ProfilePicture).MaximumLength(2048);
+                RuleFor(x => x.BudgetDayLength).InclusiveBetween(1, 365);
             }
         }
 
@@ -68,6 +71,7 @@ namespace web_api.Features.User
                 user.LastName = request.LastName;
                 user.Email = request.Email;
                 user.ProfilePicture = request.ProfilePicture ?? string.Empty;
+                user.BudgetDayLength = request.BudgetDayLength;
 
                 await _dbContext.SaveChangesAsync(cancellationToken);
                 return Result.Success();
@@ -89,7 +93,8 @@ namespace web_api.Features.User
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    ProfilePicture = request.ProfilePicture
+                    ProfilePicture = request.ProfilePicture,
+                    BudgetDayLength = request.BudgetDayLength
                 };
 
                 var result = await sender.Send(command);

@@ -21,8 +21,7 @@ public class CreateUser
         [MaxLength(256)]
         [EmailAddress]
         public required string Email { get; set; }
-        public required DateTime BudgetStartDate { get; set; }
-        public required DateTime BudgetEndDate { get; set; }
+        [Range(1,365)] public required int BudgetDayLength { get; set; }
     }
 
     public class Validator : AbstractValidator<Command>
@@ -32,8 +31,7 @@ public class CreateUser
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.BudgetStartDate).NotEmpty();
-            RuleFor(x => x.BudgetEndDate).NotEmpty();
+            RuleFor(x => x.BudgetDayLength).InclusiveBetween(1, 365);
         }
     }
 
@@ -61,8 +59,7 @@ public class CreateUser
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                BudgetStartDate = request.BudgetStartDate,
-                BudgetEndDate = request.BudgetEndDate
+                BudgetDayLength = request.BudgetDayLength
             };
 
             _dbContext.Users.Add(user);
@@ -84,8 +81,7 @@ public class CreateUserEndpoint : ICarterModule
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
-                BudgetStartDate = request.BudgetStartDate,
-                BudgetEndDate = request.BudgetEndDate
+                BudgetDayLength = request.BudgetDayLength
             };
 
             var result = await sender.Send(command);

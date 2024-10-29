@@ -17,6 +17,5 @@ public class CreateUserRequest
     [EmailAddress]
     public string Email { get; set; } = null!;
     
-    public required DateTime BudgetStartDate { get; set; }
-    public required DateTime BudgetEndDate { get; set; }
+    [Range(1,365)] public required int BudgetDayLength { get; set; }
 }
